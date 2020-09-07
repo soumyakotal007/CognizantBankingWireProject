@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="card-header bg-info" style="color: aliceblue;"><h2>Payment Search</h2></div>
+    <div class="card-body text-center">
+      <div class="alert alert-success" *ngIf="paymentSearchResponse && paymentSearchResponse.responseCode == 200">
+        {{paymentSearchResponse.responseMessage}}
+      </div>
+      <div class="alert alert-danger" *ngIf="paymentSearchResponse && paymentSearchResponse.responseCode != 200">
+        {{paymentSearchResponse.responseMessage}}
+      </div>
+      <div>
+      <form class="form-horizontal" [formGroup]="searchForm" (ngSubmit)=onSubmit();>
+        <div class="form-group row">
+          <div class="col-xs-2">
+            <label for="ex1">Transaction ID</label>
+            <input class="form-control" type="number" id="ex1" formControlName="transactionId">
+          </div>
+          &nbsp;
+          <div class="col-xs-2">
+            <label for="ex2">Customer Account</label>
+            <input class="form-control" id="ex2" type="number" formControlName="customerAccountId">
+          </div>
+          &nbsp;
+          <div class="col-xs-2">
+            <label for="ex3">Payment Status</label>
+            <select class="form-control" id="ex3" formControlName="transactionStatus">
+              <option value="">--- Select ---</option>
+              <option value="N">Not Completed</option>
+              <option value="Y">Completed</option>
+            </select>
+          </div>
+          &nbsp;
+          <div class="col-xs-2">
+            <label for="ex4">From Date</label>
+              <input id="fromDate" 
+              class="form-control" 
+              type="date"
+              placeholder="dd/mm/yyyy" name="fromDate" id="ex4" formControlName="fromDate">
+            </div> 
+            &nbsp;
+            <div class="col-xs-2">
+              <label for="ex5">To Date</label>
+              <input id="toDate" class="form-control"  type="date"
+              placeholder="dd-mm-yyyy" name="toDate" id="ex5" formControlName="toDate">
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-center">
+              <button class="btn btn-success" type="submit" id="searchbtn">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+      <hr/>
+    <div class="row">
+      <div class="col-xs-12">
+        <app-unpaid-payment-list [searchResponse]="paymentSearchResponse"></app-unpaid-payment-list>
+      </div>
+    </div>
+    <div class="row text-right" *ngIf="paymentSearchResponse">
+        <div class="col-xs-12">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" (click)="getPrevRecords()" [class.disabled]="prev">Previous</a></li>
+                <li class="page-item"><a class="page-link" (click)="getNextRecords()" [class.disabled]="next">Next</a></li>
+            </ul>
+        </div>
+      </div>
+    <div class="card-footer bg-secondary col-xs-12">@Banking Payment System</div>
+  </div>
+  </div>

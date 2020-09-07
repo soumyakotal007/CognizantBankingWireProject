@@ -1,0 +1,39 @@
+<div col="col-lg-12">
+  <div class="card">
+    <div class="card-header bg-warning" style="color: aliceblue;"><h4>Payment Search List</h4></div>
+    <div class="card-body">
+<table class="table table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Trasaction ID</th>
+        <th>Customer ID</th>
+        <th>Customer Bank ID</th>
+        <th>Customer Account</th>
+        <th>Merchant ID</th>
+        <th>Merchant Bank ID</th>
+        <th>Merchant Account</th>
+        <th>Payment Due Date</th>
+        <th>Payment Amount</th>
+        <th>Payment Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="searchResponse">
+      <tr *ngFor="let payment of searchResponse.paymentList">
+        <td>{{payment.transactionId}}</td>
+        <td>{{payment.customerId}}</td>
+        <td>{{payment.customerBankId}}</td>
+        <td>{{payment.customerAccount}}</td>
+        <td>{{payment.merchantId}}</td>
+        <td>{{payment.merchantBankId}}</td>
+        <td>{{payment.merchantAccount}}</td>
+        <td>{{payment.paymentDueDate}}</td>
+        <td>{{payment.paymentAmt}}</td>
+        <td>{{payment.paymentStatus}}</td>
+        <td><app-edit-payment [paymentDtl]='payment'></app-edit-payment></td>
+      </tr>
+    </tbody>
+</table> 
+</div>
+</div>   
+</div>

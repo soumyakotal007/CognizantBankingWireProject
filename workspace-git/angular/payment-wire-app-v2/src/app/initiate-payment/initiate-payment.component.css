@@ -1,0 +1,19 @@
+.form-group.required .control-label:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+    top:7px;
+}
+
+.help-block {
+    color: #d00;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.spaceLeft{
+    padding-left: 10px;
+}

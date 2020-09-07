@@ -1,0 +1,97 @@
+<div class="card">
+    <div class="card-header bg-info" style="color: aliceblue;"><h2>Initiate Payment</h2></div>
+    <div class="card-body">
+        <div class="alert alert-success" *ngIf="initiationResponse && initiationResponse.responseCode == 201">
+            The payment wire initiated successfully - <span id="wireID">{{initiationResponse.clientMessage}} </span>
+          </div>
+          <div class="alert alert-danger" *ngIf="initiationResponse && initiationResponse.responseCode != 201">
+            {{initiationResponse.clientMessage}}
+          </div>
+
+       <div class="col-12">
+        <form  [formGroup]="initiateForm" (ngSubmit)=onSubmit();>
+            <div class="row">
+            <div class="form-group ">
+                <label for="custID" class="required">Customer ID</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="custID" placeholder="Enter customer ID" 
+                formControlName="customerId">
+                <span class="help-block" *ngIf="!initiateForm.get('customerId').valid" >
+                  Please enter customer id
+                </span>    
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group required">
+                <label for="customerBankId">Customer Bank ID</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="customerBankId" placeholder="Enter customer Bank Id" 
+                formControlName="customerBankId" required>
+                <span class="help-block" *ngIf="!initiateForm.get('customerBankId').valid" >
+                     Please enter customer bank id
+                </span>  
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group required">
+                <label for="customerAccount">Customer Account</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="customerAccount" placeholder="Enter customer Account" 
+                formControlName="customerAccount" required>
+                <span class="help-block" *ngIf="!initiateForm.get('customerAccount').valid" >
+                    Please enter customer account
+               </span> 
+            </div>
+            </div>
+            <div class="row">
+               
+            <div class="form-group required">
+                <label for="merchantId">Merchant ID</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="merchantId" placeholder="Enter Merchant ID" 
+                formControlName="merchantId" required>
+                <span class="help-block" *ngIf="!initiateForm.get('merchantId').valid" >
+                    Please enter merchant id
+               </span> 
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group required">
+                <label for="merchantBankId">Merchant Bank ID</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="merchantBankId" placeholder="Enter Merchant Bank ID" 
+                formControlName="merchantBankId" required>
+                <span class="help-block" *ngIf="!initiateForm.get('merchantBankId').valid" >
+                    Please enter merchant bank id
+               </span> 
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group required">
+                <label for="merchantAccount">Merchant Account</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="merchantAccount" placeholder="Enter Merchant Account" 
+                formControlName="merchantAccount" required>
+                <span class="help-block" *ngIf="!initiateForm.get('merchantAccount').valid" >
+                    Please enter merchant account
+               </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="paymentAmt required">Payment Amount</label>
+                <input type="number" class="form-control form-control-sm" 
+                id="paymentAmt" placeholder="Enter Payment Amount" 
+                formControlName="paymentAmt" required>
+                <span class="help-block" *ngIf="!initiateForm.get('paymentAmt').valid" >
+                    Please enter payment amount
+               </span>
+            </div>
+        </div>  
+        <div class="row">
+            <div>
+                <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>&nbsp;
+                <button type="button" class="btn btn-success" id="resetBtn" (click)="resetForm();">Reset</button>
+            </div>
+        </div>
+          </form>
+       </div>
+    </div>
+    <div class="card-footer bg-secondary">@Banking Payment System</div>
+</div>

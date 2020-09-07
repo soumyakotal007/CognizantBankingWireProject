@@ -1,0 +1,114 @@
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Payment update</h4>
+    <button type="button" class="close btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="alert alert-success col-12" *ngIf="responseCode == 200 && responseCode != 0">
+        {{responseStatus}}
+      </div>
+      <div class="alert alert-danger co-12" *ngIf="responseCode != 200 && responseCode != 0">
+        {{responseStatus}}
+      </div>
+   </div>
+    <div class="row">
+      <div class="col-12">
+      <form [formGroup]="editForm" (ngSubmit)=modifyCustomer();>
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th colspan="2">Payment Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Trasaction ID</td>
+              <td>{{paymentDtl.transactionId}}
+                <input type="hidden" formControlName="transactionId"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Customer ID</td>
+              <td>{{paymentDtl.customerId}}</td>
+              <input type="hidden" formControlName="customerId"/>
+            </tr>
+            <tr>
+              <td>Customer Bank ID</td>
+              <td>{{paymentDtl.customerBankId}}</td>
+              <input type="hidden" formControlName="customerBankId"/>
+            </tr>
+            <tr>
+              <td>Customer Account</td>
+              <td>
+                <input type="number" class="form-control" formControlName="customerAccount" size="12"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Merchant ID</td>
+              <td>{{paymentDtl.merchantId}}</td>
+              <input type="hidden" formControlName="merchantId"/>
+            </tr>
+            <tr>
+              <td>Merchant Bank ID</td>
+              <td>{{paymentDtl.merchantBankId}}</td>
+              <input type="hidden" formControlName="merchantBankId"/>
+            </tr>
+            <tr>  
+              <td>Merchant Account</td>
+              <td>
+                 <input type="number" class="form-control" formControlName="merchantAccount" size="12"/>
+                </td>
+            </tr>
+            <tr>
+              <td>Payment Due Date</td>
+              <td>
+                {{paymentDtl.paymentDueDate}}
+                <input type="date" class="form-control" formControlName="paymentDueDate"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Payment Amount</td>
+              <td>
+                <input type="number" class="form-control" formControlName="paymentAmt"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Payment Status</td>
+              <td>{{paymentDtl.paymentStatus}}</td>
+              <input type="hidden" formControlName="paymentStatus"/>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+                 <div>
+                    <button type="button" class="btn btn-success" 
+                    [disabled]="paymentDtl.paymentStatus == 'Y' || isPaymentComlete" 
+                    (click)="modifyCustomer()">Modify</button>
+                 </div>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </form>
+        </div>
+      </div>
+  </div>
+    <div class="modal-footer col-sm-12">
+      <div><button type="button" class="btn btn-success" [disabled]="paymentDtl.paymentStatus == 'Y' || isVerified" (click)="verifiyCustomer()">Verify</button></div>
+      <div><button type="button" class="btn btn-success" [disabled]="paymentDtl.paymentStatus == 'Y' || isAuthorized" (click)="authorizeMerchant()">Authorize</button></div>
+      <div>
+        <button type="button" class="btn btn-danger" [disabled]="paymentDtl.paymentStatus == 'Y' || !isAuthorized || !isVerified || isPaymentComlete" (click)="completePayment()">
+          Complete</button>
+      </div>
+      <button type="button" class="btn btn-info"  (click)="modal.dismiss('Cross click')">Close</button>    
+    </div>
+  </ng-template>
+
+  
+  <button class="btn btn-outline-success" (click)="open(content)">Edit</button>
+  
+ 
+  
